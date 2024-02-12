@@ -9,11 +9,12 @@
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env ./server.js",
     "start-worker": "nodemon --exec babel-node --presets @babel/preset-env ./worker.js",
     "dev": "nodemon --exec babel-node --presets @babel/preset-env",
-    "test": "./node_modules/.bin/mocha --require @babel/register --exit" 
+    "test": "./node_modules/.bin/mocha --require @babel/register --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bull": "^3.16.0",
     "chai-http": "^4.3.0",
     "express": "^4.17.1",
