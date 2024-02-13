@@ -40,6 +40,9 @@ class DBClient {
     const filesCount = await db.collection('files').countDocuments();
     return filesCount;
   }
+
+  findUserByEmail(email) {
+	  re
 }
 
 const dbClient = new DBClient();
