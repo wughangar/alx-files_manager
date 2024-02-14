@@ -3,6 +3,7 @@ const dbClient = require('../utils/db');
 
 const UsersController = {
   postNew: async (req, res) => {
+    console.log(">>>>>>>>", req);
     const { email, password } = req.body;
 
     if (!email) {
@@ -24,7 +25,7 @@ const UsersController = {
 
       // Create a new user in the database
       const newUser = await dbClient.createUser({ email, password: hashedPassword });
-
+      console.log(newUser)
       // Return the new user with only email and id
       return res.status(201).json({ email: newUser.email, id: newUser.id });
     } catch (error) {
