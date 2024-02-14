@@ -4,7 +4,7 @@ const redisClient = require('../utils/redis');
 const dbClient = require('../utils/db');
 
 const AuthController = {
-  connect: async (req, res) => {
+  getConnect: async (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Basic ')) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -26,7 +26,7 @@ const AuthController = {
     return res.status(200).json({ token });
   },
 
-  disconnect: async (req, res) => {
+  getDisconnect: async (req, res) => {
     const { 'x-token': token } = req.headers;
     if (!token) {
       return res.status(401).json({ error: 'Unauthorized' });
