@@ -1,9 +1,14 @@
+const express = require('express');
 const sha1 = require('sha1');
 const dbClient = require('../utils/db');
 
+const router = express.Router();
+
+router.use(express.json());
+
 const UsersController = {
   postNew: async (req, res) => {
-    console.log(">>>>>>>>", req);
+    console.log(">>>>>>>>", req.body);
     const { email, password } = req.body;
 
     if (!email) {
@@ -14,19 +19,15 @@ const UsersController = {
     }
 
     try {
-      // Check if the email already exists in the database
       const userExists = await dbClient.findUserByEmail(email);
       if (userExists) {
         return res.status(400).json({ error: 'Already exist' });
       }
 
-      // Hash the password using SHA1
       const hashedPassword = sha1(password);
 
-      // Create a new user in the database
       const newUser = await dbClient.createUser({ email, password: hashedPassword });
       console.log(newUser)
-      // Return the new user with only email and id
       return res.status(201).json({ email: newUser.email, id: newUser.id });
     } catch (error) {
       console.error('Error creating user:', error);
@@ -35,4 +36,5 @@ const UsersController = {
   }
 };
 
+module.exports = router;
 module.exports = UsersController;
